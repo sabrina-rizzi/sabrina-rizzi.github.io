@@ -447,9 +447,14 @@ section {
   box-shadow: var(--shadow-lg);
 }
 
+.service-card:hover .service-icon {
+  transform: scale(1.1);
+}
+
 .service-icon {
   font-size: 3rem;
   margin-bottom: var(--spacing-sm);
+  transition: transform 0.3s ease;
 }
 
 .service-title {
@@ -461,6 +466,12 @@ section {
 .service-description {
   color: var(--text-secondary);
   line-height: 1.6;
+}
+
+.icon-img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
 }
 
 /* ===== EDUCATION SECTION ===== */
@@ -926,3 +937,4 @@ section {
     align-items: flex-start;
   }
 }
+
