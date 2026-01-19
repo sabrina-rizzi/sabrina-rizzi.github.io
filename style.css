@@ -377,7 +377,7 @@ button {
 }
 
 .greeting-text {
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .gradient-text {
@@ -1084,11 +1084,11 @@ section {
   }
 
   .profile-image {
-    max-width: 200px;
+    max-width: 225px;
   }
 
   .hero-title {
-    font-size: 1.75rem;
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
   }
 
   .hero-description {
