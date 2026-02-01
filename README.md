@@ -8,7 +8,7 @@
 
 ---
 
-## �‍💼 Chi Sono
+## 💼 Chi Sono
 
 Sono una studentessa al primo anno del biennio in **AI Dev. & Data Analysis** presso l'ITS Digital Academy "Mario Volpato" di Verona (2025-2027). Il mio percorso è guidato da una missione chiara: trasformare la sfida dell'Intelligenza Artificiale in un'opportunità di crescita che rimetta al centro l'essere umano. Credo in un'AI che non sostituisca l'individuo, ma ne amplifichi il potenziale creativo e strategico, agendo come un "nuovo scalpello" nelle mani dell'artigiano tecnologico moderno.
 
