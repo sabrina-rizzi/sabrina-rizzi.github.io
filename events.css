@@ -1,0 +1,169 @@
+/*! 
+ * (c) 2026 Sabrina Rizzi
+ * Role: AI Developer & Data Analyst
+ * Tutela legale: All Rights Reserved. Plagiarism is strictly prohibited.
+ */
+
+/* ===== SPEAKING & EVENTS SECTION ===== */
+.speaking {
+    position: relative;
+    background: transparent;
+    padding: var(--spacing-xl) 0;
+}
+
+.event-card {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+[data-theme="light"] .event-card {
+    background: #ffffff;
+    color: #1e1b4b;
+}
+
+[data-theme="dark"] .event-card {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.event-card .event-title,
+.event-card .event-description,
+.event-card .event-list {
+    color: inherit;
+}
+
+.event-card .event-subtitle {
+    /* Maintain accent color for subtitle as it usually has good contrast */
+    color: var(--accent-primary);
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(139, 92, 246, 0.1);
+    border-color: var(--accent-primary);
+}
+
+.event-image-placeholder {
+    flex: 1 1 300px;
+    background: var(--bg-tertiary);
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-tertiary);
+    position: relative;
+    overflow: hidden;
+}
+
+.event-image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    /* Focus on the person in the frame */
+}
+
+.event-content {
+    flex: 2 1 400px;
+    padding: var(--spacing-lg);
+}
+
+.event-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.event-subtitle {
+    color: var(--accent-primary);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.event-description {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: var(--spacing-md);
+}
+
+.event-list {
+    padding-left: 1.25rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-secondary);
+}
+
+.event-list li {
+    margin-bottom: 0.5rem;
+}
+
+.event-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-primary);
+    font-weight: 700;
+    transition: gap var(--transition-fast);
+}
+
+.event-link:hover {
+    gap: 0.75rem;
+}
+
+.vision-quote {
+    text-align: center;
+    max-width: 800px;
+    margin: var(--spacing-xl) auto 0;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: #475569;
+    /* Applied requested color */
+    position: relative;
+    padding: 0 var(--spacing-lg);
+    line-height: 1.6;
+}
+
+[data-theme="dark"] .vision-quote {
+    color: #ffffff;
+    /* White in Dark Mode */
+}
+
+.vision-quote::before,
+.vision-quote::after {
+    content: '"';
+    font-size: 4rem;
+    font-family: serif;
+    opacity: 0.15;
+    position: absolute;
+    line-height: 1;
+}
+
+.vision-quote::before {
+    left: 0;
+    top: -1rem;
+}
+
+.vision-quote::after {
+    right: 0;
+    bottom: -2rem;
+}
+
+.photo-disclaimer {
+    font-size: 0.7rem;
+    color: var(--text-tertiary);
+    margin-top: 1rem;
+    font-style: italic;
+    line-height: 1.4;
+    border-top: 1px solid var(--border-color);
+    padding-top: 0.5rem;
+}
