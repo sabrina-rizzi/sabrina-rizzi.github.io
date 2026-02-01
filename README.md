@@ -1,4 +1,4 @@
-# Sito Antigravity - Sabrina Rizzi
+# Personal Portfolio - Sabrina Rizzi
 
 ![Antigravity Identity](logo.png)
 
@@ -10,9 +10,10 @@
 
 ## �‍💼 Chi Sono
 
-Sono una studentessa ITS in **AI & Data Analysis** presso ITS Digital Academy "Mario Volpato" (2025-2027). Il mio profilo si distingue per un background consolidato nella gestione di processi complessi e relazioni B2B executive, che oggi porto nel mondo della tecnologia per renderla accessibile e orientata al valore aziendale.
+Sono una studentessa in **AI & Data Analysis** presso ITS Digital Academy "Mario Volpato" (2025-2027). Il mio profilo si distingue per un background consolidato nella gestione di processi complessi e relazioni B2B executive, che oggi porto nel mondo della tecnologia per renderla accessibile e orientata al valore aziendale.
 
 ### Competenze Core
+
 - 🤖 **AI & Data:** Python, SQL, Data Analysis (EDA), Data Visualization (Power BI, Tableau).
 - 💼 **Business Technical Bridge:** Requirements Analysis, Process Optimization, Stakeholder Management.
 - 🔒 **Cybersecurity Awareness:** SOC Operations, ISO 27001, Vulnerability Management.
@@ -23,11 +24,13 @@ Sono una studentessa ITS in **AI & Data Analysis** presso ITS Digital Academy "M
 ## 🚀 Caratteristiche Tecniche
 
 ### Design Bio-Organico & UX
+
 - **Living Background:** Uno sfondo dinamico basato su radici neurali generate proceduralmente (Canvas API) che reagiscono al tema e all'interazione utente.
 - **AI-Inspired Interaction:** Effetti Spotlight sul form contatti, morphing organico (blob) delle immagini e transizioni fluide "glassmorphism".
 - **Responsive & Performance:** Design mobile-first ultra-veloce, ottimizzato per ogni dispositivo (PageSpeed focus).
 
 ### Funzionalità Core
+
 - **Dual Mode:** Sistema di switch Dark/Light con persistenza delle preferenze tramite `localStorage`.
 - **Multilingua:** Supporto nativo IT/EN con cambio lingua istantaneo senza ricaricamento pagina.
 - **Visione & Contributi:** Sezione dedicata allo storytelling professionale e ai contributi pubblici (es. Job&Orienta 2025).
@@ -37,14 +40,14 @@ Sono una studentessa ITS in **AI & Data Analysis** presso ITS Digital Academy "M
 ## 📁 Struttura del Progetto
 
 ```text
-📦 sito-antigravity
+📦 Sito
 ├── 📄 index.html          # Struttura semantica e SEO-friendly
 ├── 🎨 style.css           # Design system (Custom Properties, Flex/Grid)
 ├── 🎨 events.css          # Styling specifico per la sezione Visione & Contributi
 ├── ⚙️ script.js           # Motore neurale e logica di stato (Theme/Lang)
 ├── 📄 README.md           # Questa documentazione
 ├── 📸 assets/             # Foto profilo, icone e risorse grafiche
-└── 📋 CV_Sabrina_Rizzi.pdf # Portfolio formativo
+└── 📋 CV_Sabrina_Rizzi.pdf # Curriculum Vitae
 ```
 
 ---
@@ -57,9 +60,9 @@ Tutti i diritti sul codice e sul design di questo sito sono riservati.
 > **Nota sul Plagio:** Questo progetto è il risultato di un lavoro di ricerca e design originale. Sebbene l'uso come fonte di ispirazione sia benvenuto, la duplicazione diretta del codice o del design per scopi accademici o professionali senza autorizzazione è **proibita**.
 
 - **Codice:** All Rights Reserved. La copia del codice sorgente per la creazione di siti portfolio altrui costituisce plagio e sarà segnalata alle piattaforme competenti.
-- **Brand & Logo:** Il marchio "Antigravity" e il concept estetico sono di proprietà esclusiva di Sabrina Rizzi.
+- **Brand & Logo:** Il marchio "SR" e il concept estetico sono di proprietà esclusiva di Sabrina Rizzi.
 
 ---
 
 Creato con passione e rigore tecnico da **Sabrina Rizzi**.  
-*Made with ❤️ and Artificial Intelligence.*
+_Made with ❤️ and Artificial Intelligence._
