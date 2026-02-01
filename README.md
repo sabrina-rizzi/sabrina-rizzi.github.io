@@ -10,14 +10,14 @@
 
 ## �‍💼 Chi Sono
 
-Sono una studentessa in **AI & Data Analysis** presso ITS Digital Academy "Mario Volpato" (2025-2027). Il mio profilo si distingue per un background consolidato nella gestione di processi complessi e relazioni B2B executive, che oggi porto nel mondo della tecnologia per renderla accessibile e orientata al valore aziendale.
+Sono una studentessa al primo anno del biennio in **AI Dev. & Data Analysis** presso l'ITS Digital Academy "Mario Volpato" di Verona (2025-2027). Il mio percorso è guidato da una missione chiara: trasformare la sfida dell'Intelligenza Artificiale in un'opportunità di crescita che rimetta al centro l'essere umano. Credo in un'AI che non sostituisca l'individuo, ma ne amplifichi il potenziale creativo e strategico, agendo come un "nuovo scalpello" nelle mani dell'artigiano tecnologico moderno.
 
 ### Competenze Core
 
-- 🤖 **AI & Data:** Python, SQL, Data Analysis (EDA), Data Visualization (Power BI, Tableau).
-- 💼 **Business Technical Bridge:** Requirements Analysis, Process Optimization, Stakeholder Management.
-- 🔒 **Cybersecurity Awareness:** SOC Operations, ISO 27001, Vulnerability Management.
+- 🤖 **AI & Data:** Sviluppo in Python, analisi statistica (EDA), SQL e Data Visualization per trasformare macro-insiemi di dati in insight azionabili ("Small Data" di valore).
+- 💼 **Business Technical Bridge:** Capacità di tradurre necessità aziendali complesse in requisiti tecnici, con un focus particolare sui settori Wine, Luxury e Retail.
 - 🌐 **Web Tech:** HTML5, CSS3, JavaScript (Vanilla), Canvas API.
+- 🔒 **Comunicazione e Visione** Public speaking e divulgazione sui temi dell'etica digitale e dell'impatto dell'AI sui processi artigianali e industriali.
 
 ---
 
