@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initTypingEffect();
   initMouseTracking(); // Handles spotlight form too
   initContactWink();
+  initCarousel();
 
   // Re-run roots init on theme change to ensure colors are updated
   const themeToggle = document.getElementById("themeToggle");
@@ -372,6 +373,91 @@ function initScrollAnimations() {
     el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
     observer.observe(el);
   });
+}
+
+// ===== EVENTS CAROUSEL =====
+function initCarousel() {
+  const slider = document.querySelector(".events-slider");
+  const cards = document.querySelectorAll(".event-card");
+  const prevBtn = document.querySelector(".events-nav-btn.prev");
+  const nextBtn = document.querySelector(".events-nav-btn.next");
+  const dots = document.querySelectorAll(".dot");
+
+  if (!slider || cards.length === 0) return;
+
+  let currentIndex = 0;
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  function updateCarousel(index) {
+    // Remove active class from all cards and dots
+    cards.forEach((card) => card.classList.remove("active"));
+    dots.forEach((dot) => dot.classList.remove("active"));
+
+    // Add active class to current card and dot
+    cards[index].classList.add("active");
+    if (dots[index]) dots[index].classList.add("active");
+
+    currentIndex = index;
+  }
+
+  function nextSlide() {
+    let newIndex = (currentIndex + 1) % cards.length;
+    updateCarousel(newIndex);
+  }
+
+  function prevSlide() {
+    let newIndex = (currentIndex - 1 + cards.length) % cards.length;
+    updateCarousel(newIndex);
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      prevSlide();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      nextSlide();
+    });
+  }
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      updateCarousel(index);
+    });
+  });
+
+  // Touch Support for mobile
+  slider.addEventListener(
+    "touchstart",
+    (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    },
+    { passive: true }
+  );
+
+  slider.addEventListener(
+    "touchend",
+    (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleGesture();
+    },
+    { passive: true }
+  );
+
+  function handleGesture() {
+    if (touchEndX < touchStartX - 50) {
+      nextSlide();
+    }
+    if (touchEndX > touchStartX + 50) {
+      prevSlide();
+    }
+  }
+
+  // Ensure first card is active on init (should already be from HTML, but good to be safe)
+  updateCarousel(0);
 }
 
 // ===== ORGANIC ROOTS BACKGROUND =====
