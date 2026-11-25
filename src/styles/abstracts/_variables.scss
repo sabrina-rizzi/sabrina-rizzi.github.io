@@ -1,0 +1,52 @@
+// ===================================================================
+//  VARIABILI SCSS ($) — token di STRUTTURA
+//  Compile-time: Sass le sostituisce con valori fissi nel CSS finale.
+//  Qui sta ciò che NON cambia col tema (spaziature, breakpoint, raggi,
+//  z-index, tempi di animazione). I colori del tema sono invece custom
+//  properties CSS (vedi globals.scss), perché cambiano a runtime.
+// ===================================================================
+
+// ---- Spacing (scala coerente, in rem) ----
+$space-3xs: 0.25rem; //  4px
+$space-2xs: 0.5rem;  //  8px
+$space-xs:  0.75rem; // 12px
+$space-sm:  1rem;    // 16px
+$space-md:  1.5rem;  // 24px
+$space-lg:  2.5rem;  // 40px
+$space-xl:  4rem;    // 64px
+$space-2xl: 6rem;    // 96px
+$space-3xl: 9rem;    // 144px
+
+// ---- Breakpoints (mobile-first = larghezze MINIME) ----
+$breakpoints: (
+  sm: 480px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+);
+
+// ---- Radii ----
+$radius-sm:   8px;
+$radius-md:   16px;
+$radius-lg:   24px;
+$radius-pill: 999px; // bottoni "a pillola" (stile Feed)
+
+// ---- Layout ----
+$max-width:     1440px; // largo: il taglio editoriale usa tutta la pagina
+$container-pad: $space-sm;
+
+// ---- Z-index (scala nominata: evita numeri a caso sparsi) ----
+$z-base:     0;
+$z-raised:   10;
+$z-dropdown: 100;
+$z-header:   500;
+$z-overlay:  1000;
+$z-modal:    2000;
+
+// ---- Motion (durate + curve) ----
+$duration-fast: 0.15s;
+$duration:      0.3s;
+$duration-slow: 0.6s;
+
+$ease-out:    cubic-bezier(0.22, 1, 0.36, 1);   // decelera alla fine (naturale)
+$ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);

@@ -1,0 +1,14 @@
+@use "../../styles/abstracts/variables" as *;
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: $space-3xs $space-sm;
+  border-radius: $radius-pill;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  line-height: 1;
+  white-space: nowrap;
+}

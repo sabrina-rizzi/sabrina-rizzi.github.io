@@ -1,0 +1,146 @@
+@use "../../styles/abstracts/variables" as *;
+
+// ---- Base comune a tutti i bottoni ----
+.btn {
+  position: relative;
+  isolation: isolate; // contesto per lo z-index interno
+  overflow: hidden; // ritaglia la macchia dentro la pillola
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2xs;
+  border: 1.5px solid transparent;
+  border-radius: $radius-pill;
+  padding: $space-xs $space-md;
+  font-family: inherit;
+  font-weight: var(--weight-medium);
+  font-size: var(--text-base);
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color $duration $ease-out,
+    border-color $duration $ease-out,
+    opacity $duration-fast $ease-out;
+}
+
+// La "macchia" di colore: un cerchio che parte dal punto del cursore
+// (--x, --y) e si espande fino a riempire il bottone.
+.btn::before {
+  content: "";
+  position: absolute;
+  top: var(--y, 50%);
+  left: var(--x, 50%);
+  width: 220%;
+  aspect-ratio: 1; // cerchio sempre proporzionato
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  background: var(--_fill);
+  z-index: 0; // sopra lo sfondo del bottone, sotto il testo
+  transition: transform $duration $ease-out;
+}
+
+.btn:hover::before,
+.btn:focus-visible::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+// Testo/icona sempre sopra la macchia
+.label {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2xs;
+}
+
+.arrow {
+  transition: transform $duration $ease-out;
+}
+.btn:hover .arrow,
+.btn:focus-visible .arrow {
+  transform: translateX(3px); // la freccia avanza
+}
+
+// Anello di focus nel colore accento (ben visibile su entrambi i temi)
+.btn:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+// Disabilitato
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn:disabled::before {
+  display: none;
+}
+
+// ===================================================================
+//  VARIANTI — regola: il contorno ha lo STESSO colore del riempimento,
+//  mai nero. Il colore del testo passa a --on-primary all'hover.
+// ===================================================================
+
+// --primary è l'"inchiostro" del tema: avorio sullo scuro, quasi-nero sul
+// chiaro. L'unico colore vero è l'accento terracotta, che compare all'hover.
+
+// 01 · Primario: pieno (inchiostro) -> macchia terracotta.
+// Il bordo ha lo STESSO colore del riempimento (inchiostro a riposo,
+// terracotta all'hover): copre la fascia di 1.5px che la macchia non
+// raggiunge, così non resta nessun alone quando si riempie.
+.primary {
+  background: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+  --_fill: var(--accent);
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--accent);
+  }
+}
+
+// 02 · Secondario: trasparente, contorno inchiostro -> si riempie d'inchiostro
+.secondary {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--primary);
+  --_fill: var(--primary);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--on-primary);
+  }
+}
+
+// 03 · Inline: pillola piccola, contorno terracotta, freccia
+.inline {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--accent);
+  padding: $space-3xs $space-sm;
+  font-size: var(--text-sm);
+  --_fill: var(--accent);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--on-primary);
+  }
+}
+
+// 04 · Icona (tondo): trasparente, contorno sottile -> si riempie d'inchiostro
+.icon {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border-strong);
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  font-size: var(--text-lg);
+  --_fill: var(--primary);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--on-primary);
+  }
+}

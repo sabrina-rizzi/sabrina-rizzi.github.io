@@ -1,0 +1,74 @@
+// ===================================================================
+//  GLOBALS — punto d'ingresso degli stili globali.
+//  1) carica abstracts (variabili/mixin) e base (reset/tipografia)
+//  2) definisce i TOKEN come custom properties CSS (colore, tipo, ombre)
+//  3) gestisce i temi (chiaro / scuro)
+// ===================================================================
+
+@use "abstracts/variables" as *;
+@use "abstracts/mixins" as *;
+@use "base/reset";
+@use "base/typography";
+
+:root {
+  // ---- Colori del MARCHIO (quelli del logo: NON cambiano col tema) ----
+  // Servono al logo e alle illustrazioni. Nell'interfaccia non si usano
+  // direttamente: lì valgono i token semantici qui sotto.
+  --color-cream:     #f3ecdf;
+  --color-sage:      #7c8c6e;
+  --color-terracotta:#c97b5c;
+  --color-burgundy:  #7a3b3b;
+  --color-ochre:     #d9a441;
+
+  // ---- Token semantici — TEMA SCURO (predefinito) ----
+  // Nei componenti usiamo SOLO questi "ruoli". I valori stanno nel mixin
+  // theme-dark (abstracts/_mixins.scss).
+  @include theme-dark;
+
+  // ---- Tipografia ----
+  --font-serif: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-sans:  var(--font-inter), system-ui, -apple-system, sans-serif;
+  // Monospace: SOLO per contatori, periodi ed etichette (mai per il testo).
+  --font-mono:  var(--font-jetbrains-mono), ui-monospace, "Cascadia Mono",
+    Consolas, monospace;
+
+  // dimensioni fisse
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+
+  // dimensioni fluide: clamp(min, preferito, max)
+  --text-2xl:   clamp(1.375rem, 1.1rem + 1vw, 1.75rem);
+  --display-sm: clamp(1.75rem, 1.2rem + 2.4vw, 3rem);
+  --display-md: clamp(2.5rem, 1.4rem + 5vw, 5rem);  // titoli di sezione: 80px su desktop
+  --display-lg: clamp(3rem, 1rem + 9vw, 9rem);      // il nome nell'intro
+
+  --leading-display: 1; // titoli enormi: righe attaccate
+  --leading-tight:  1.1;
+  --leading-snug:   1.3;
+  --leading-normal: 1.6;
+
+  --tracking-display: -0.03em; // più un titolo è grande, più si stringe
+  --tracking-tight:  -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.08em;
+
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+}
+
+// ---- TEMA CHIARO ----
+// Lo scuro è l'identità del sito, quindi è il predefinito per tutti
+// (non seguiamo più la preferenza di sistema). Il chiaro si attiva solo
+// per scelta esplicita, con l'interruttore: data-theme="light".
+:root[data-theme="light"] {
+  @include theme-light;
+}
+
+// Dissolvenza morbida quando si cambia tema a mano (non al primo caricamento).
+:root[data-theme] body {
+  --_theme-fade: #{$duration};
+}

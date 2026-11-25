@@ -1,0 +1,63 @@
+@use "../../styles/abstracts/variables" as *;
+@use "../../styles/abstracts/mixins" as *;
+
+// Tutto il menu mobile sparisce da md in su (lì c'è la nav in riga).
+.wrap {
+  @include from(md) {
+    display: none;
+  }
+}
+
+// Il pannello si aggancia all'header (che è "sticky", quindi posizionato):
+// top: 100% = subito sotto il suo bordo inferiore, a tutta larghezza.
+.panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+}
+
+// L'attributo hidden da solo perderebbe contro "display" di una classe:
+// lo rendiamo esplicito.
+.panel[hidden] {
+  display: none;
+}
+
+.list {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  padding-block: $space-sm;
+}
+
+.item {
+  display: flex;
+  align-items: baseline;
+  gap: $space-sm;
+  padding-block: $space-xs;
+  font-size: var(--text-lg);
+
+  & + & {
+    border-top: 1px solid var(--border);
+  }
+}
+
+// Sottotitolo della voce ("Il mio percorso"), spinto a destra.
+.hint {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-muted);
+}
+
+.number {
+  font-family: var(--font-serif);
+  font-size: var(--text-sm);
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}

@@ -1,68 +1,37 @@
-# Personal Portfolio - Sabrina Rizzi
+# Sabrina Rizzi — Portfolio
 
-![Antigravity Identity](logo.png)
+Sito personale di Sabrina Rizzi, Junior AI Developer e Data Analyst.
 
-👋 Benvenuti nel repository del mio sito personale! Questo spazio è il riflesso della mia missione: unire un'estetica moderna e tecnologica a una narrazione autentica delle mie competenze in **AI Development** e **Data Analysis**.
+Online su [sabrina-rizzi.github.io](https://sabrina-rizzi.github.io).
 
-🌐 **Visita il sito live:** [sabrina-rizzi.github.io](https://sabrina-rizzi.github.io)
+## Tecnologie
 
----
+- [Next.js](https://nextjs.org) (App Router) con React e TypeScript
+- SCSS modules per gli stili
+- GSAP per le animazioni
+- Esportazione statica, pubblicata su GitHub Pages
 
-## 💼 Chi Sono
+## Avvio in locale
 
-Sono una studentessa al primo anno del biennio in **AI Dev. & Data Analysis** presso l'ITS Digital Academy "Mario Volpato" di Verona (2025-2027). Il mio percorso è guidato da una missione chiara: trasformare la sfida dell'Intelligenza Artificiale in un'opportunità di crescita che rimetta al centro l'essere umano. Credo in un'AI che non sostituisca l'individuo, ma ne amplifichi il potenziale creativo e strategico, agendo come un "nuovo scalpello" nelle mani dell'artigiano tecnologico moderno.
+Serve Node.js 24 o successivo.
 
-### Competenze Core
-
-- 🤖 **AI & Data:** Sviluppo in Python, analisi statistica (EDA), SQL e Data Visualization per trasformare macro-insiemi di dati in insight azionabili ("Small Data" di valore).
-- 💼 **Business Technical Bridge:** Capacità di tradurre necessità aziendali complesse in requisiti tecnici, con un focus particolare sui settori Wine, Luxury e Retail.
-- 🌐 **Web Tech:** HTML5, CSS3, JavaScript (Vanilla), Canvas API.
-- 🔒 **Comunicazione e Visione** Public speaking e divulgazione sui temi dell'etica digitale e dell'impatto dell'AI sui processi artigianali e industriali.
-
----
-
-## 🚀 Caratteristiche Tecniche
-
-### Design Bio-Organico & UX
-
-- **Living Background:** Uno sfondo dinamico basato su radici neurali generate proceduralmente (Canvas API) che reagiscono al tema e all'interazione utente.
-- **AI-Inspired Interaction:** Effetti Spotlight sul form contatti, morphing organico (blob) delle immagini e transizioni fluide "glassmorphism".
-- **Responsive & Performance:** Design mobile-first ultra-veloce, ottimizzato per ogni dispositivo (PageSpeed focus).
-
-### Funzionalità Core
-
-- **Dual Mode:** Sistema di switch Dark/Light con persistenza delle preferenze tramite `localStorage`.
-- **Multilingua:** Supporto nativo IT/EN con cambio lingua istantaneo senza ricaricamento pagina.
-- **Visione & Contributi:** Sezione dedicata allo storytelling professionale e ai contributi pubblici (es. Job&Orienta 2025).
-
----
-
-## 📁 Struttura del Progetto
-
-```text
-📦 Sito
-├── 📄 index.html          # Struttura semantica e SEO-friendly
-├── 🎨 style.css           # Design system (Custom Properties, Flex/Grid)
-├── 🎨 events.css          # Styling specifico per la sezione Visione & Contributi
-├── ⚙️ script.js           # Motore neurale e logica di stato (Theme/Lang)
-├── 📄 README.md           # Questa documentazione
-├── 📸 assets/             # Foto profilo, icone e risorse grafiche
-└── 📋 CV_Sabrina_Rizzi.pdf # Curriculum Vitae
+```bash
+npm install
+npm run dev
 ```
 
----
+Il sito si apre su `http://localhost:3000`.
 
-## 📜 Tutela Legale e Licenza
+## Pubblicazione
 
-Tutti i diritti sul codice e sul design di questo sito sono riservati.
+`npm run build` crea il sito statico nella cartella `out/`.
 
-> [!WARNING]
-> **Nota sul Plagio:** Questo progetto è il risultato di un lavoro di ricerca e design originale. Sebbene l'uso come fonte di ispirazione sia benvenuto, la duplicazione diretta del codice o del design per scopi accademici o professionali senza autorizzazione è **proibita**.
+A ogni push sul ramo `main`, il workflow `.github/workflows/deploy.yml` costruisce il sito e lo pubblica su GitHub Pages. Nelle impostazioni del repository (Settings → Pages) la sorgente deve essere "GitHub Actions".
 
-- **Codice:** All Rights Reserved. La copia del codice sorgente per la creazione di siti portfolio altrui costituisce plagio e sarà segnalata alle piattaforme competenti.
-- **Brand & Logo:** Il marchio "SR" e il concept estetico sono di proprietà esclusiva di Sabrina Rizzi.
+## Struttura
 
----
-
-Creato con passione e rigore tecnico da **Sabrina Rizzi**.  
-_Made with ❤️ and Artificial Intelligence._
+- `src/app/` — le pagine: home, Chi sono, Progetti, Contatti, privacy e cookie policy
+- `src/components/` — i componenti, ognuno con il proprio file di stile
+- `src/data/` — i testi e i contenuti del sito, separati dal codice
+- `src/styles/` — variabili, mixin e stili globali
+- `public/` — file serviti così come sono (es. il CV)

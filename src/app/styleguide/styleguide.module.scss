@@ -1,0 +1,222 @@
+@use "../../styles/abstracts/variables" as *;
+@use "../../styles/abstracts/mixins" as *;
+
+.page {
+  @include container;
+  padding-block: $space-xl;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2xl;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: $space-md;
+  flex-wrap: wrap;
+}
+
+.overline {
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  font-size: var(--text-sm);
+  color: var(--accent);
+}
+
+.title {
+  font-size: var(--display-md);
+  margin-top: $space-3xs;
+}
+
+.lead {
+  color: var(--text-muted);
+  max-width: 60ch;
+  margin-top: $space-2xs;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.sectionTitle {
+  font-size: var(--text-xl);
+  padding-bottom: $space-2xs;
+  border-bottom: 1px solid var(--border);
+}
+
+// ---- Colori ----
+.swatchGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-sm;
+
+  @include from(sm) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @include from(md) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.chip {
+  height: 72px;
+  border-radius: $radius-md;
+  border: 1px solid var(--border);
+}
+
+.swatchName {
+  margin-top: $space-2xs;
+  font-size: var(--text-sm);
+}
+
+.swatchValue {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  font-family: var(--font-mono, monospace);
+}
+
+// ---- Tipografia ----
+.typeRow {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3xs;
+  padding-block: $space-sm;
+  border-bottom: 1px solid var(--border);
+}
+
+.typeLabel {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.serif {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+}
+.sans {
+  font-family: var(--font-sans);
+}
+.mono {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+// ---- Spaziature ----
+.spaceRow {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.spaceBar {
+  height: 16px;
+  background: var(--accent);
+  border-radius: $radius-sm;
+  flex: none;
+}
+
+.w-3xs { width: $space-3xs; }
+.w-2xs { width: $space-2xs; }
+.w-xs  { width: $space-xs; }
+.w-sm  { width: $space-sm; }
+.w-md  { width: $space-md; }
+.w-lg  { width: $space-lg; }
+.w-xl  { width: $space-xl; }
+.w-2xl { width: $space-2xl; }
+.w-3xl { width: $space-3xl; }
+
+// ---- Raggi + ombre ----
+.boxGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-md;
+
+  @include from(sm) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.box {
+  height: 96px;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
+.r-sm   { border-radius: $radius-sm; }
+.r-md   { border-radius: $radius-md; }
+.r-lg   { border-radius: $radius-lg; }
+.r-pill { border-radius: $radius-pill; }
+
+.shadowBox {
+  height: 96px;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  border-radius: $radius-md;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+.sh-sm { box-shadow: var(--shadow-sm); }
+.sh-md { box-shadow: var(--shadow-md); }
+
+.note {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  font-style: italic;
+}
+
+// ---- Componenti ----
+.componentRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-md;
+}
+
+.subLabel {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  margin-top: $space-sm;
+}
+
+.fieldDemo {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  max-width: 32rem;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-md;
+
+  @include from(sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include from(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Riquadro per mostrare un componente "a tutta larghezza" dentro la vetrina
+.frame {
+  border: 1px dashed var(--border-strong);
+  border-radius: $radius-md;
+  overflow: hidden;
+}

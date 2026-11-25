@@ -1,0 +1,66 @@
+@use "../../styles/abstracts/variables" as *;
+@use "../../styles/abstracts/mixins" as *;
+
+// Mobile first: tutto in colonna.
+// Da md: frase guida | testo, e i punti fermi su tutta la larghezza.
+.about {
+  display: grid;
+  gap: $space-lg;
+
+  @include from(md) {
+    grid-template-columns: 1.2fr 1fr;
+    gap: $space-xl;
+  }
+}
+
+.statement {
+  font-family: var(--font-serif);
+  font-size: var(--display-sm);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  // Va a capo in righe di lunghezza simile (dove il browser lo supporta).
+  text-wrap: balance;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  color: var(--text-muted);
+  max-width: 60ch;
+}
+
+.points {
+  display: grid;
+  border-top: 1px solid var(--border-strong);
+
+  @include from(md) {
+    // Occupa entrambe le colonne della griglia madre...
+    grid-column: 1 / -1;
+    // ...e si divide a sua volta in tre.
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-lg;
+  }
+}
+
+.point {
+  padding-block: $space-sm;
+  border-bottom: 1px solid var(--border);
+
+  @include from(md) {
+    border-bottom: 0;
+  }
+}
+
+.term {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--accent);
+}
+
+.detail {
+  margin-top: $space-3xs;
+}

@@ -1,0 +1,310 @@
+@use "../../styles/abstracts/variables" as *;
+@use "../../styles/abstracts/mixins" as *;
+
+// Altezza dell'header (4.5rem + 1px di bordo): serve a far occupare
+// all'hero esattamente il resto dello schermo.
+$header-height: calc(4.5rem + 1px);
+
+.hero {
+  @include container;
+  padding-block: $space-md $space-xl;
+
+  @include from(md) {
+    padding-block: 0 $space-lg;
+  }
+}
+
+// ---- La griglia ----
+// "Aree" con un nome: ogni pezzo dichiara in quale area va (grid-area).
+// Mobile: una colonna, la foto subito sotto la riga tecnica.
+.inner {
+  display: grid;
+  // Rende .inner un "contenitore": i figli possono usare l'unità cqi
+  // (1cqi = 1% della larghezza di .inner). Serve al nome, che deve essere
+  // largo ESATTAMENTE quanto il contenuto, a qualsiasi misura di schermo.
+  container-type: inline-size;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "meta"
+    "photo"
+    "title"
+    "role"
+    "side"
+    "facts";
+
+  // Da md: foto a sinistra alta quanto tutto l'hero, a destra riga tecnica
+  // e testo; in fondo il nome, largo quanto la pagina.
+  // 100svh = altezza dello schermo "piccola" (con le barre del browser
+  // mobile visibili): tolto l'header, l'hero riempie lo schermo.
+  @include from(md) {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-rows: auto 1fr auto auto auto;
+    column-gap: $space-lg;
+    min-height: calc(100svh - #{$header-height} - #{$space-lg});
+    // La foto NON è tra le aree: occupa tutte le righe della prima
+    // colonna (vedi .figure) e il nome le passa sopra. I punti sono
+    // celle lasciate libere.
+    grid-template-areas:
+      ". meta"
+      ". side"
+      ". facts"
+      ". role"
+      "title title";
+  }
+}
+
+// ---- Riga tecnica: come nelle sezioni ("01 / 09" + etichetta) ----
+.meta {
+  grid-area: meta;
+  display: flex;
+  justify-content: space-between;
+  gap: $space-sm;
+  padding-bottom: $space-xs;
+  border-bottom: 1px solid var(--border-strong);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+
+  @include from(md) {
+    margin-top: $space-lg;
+  }
+}
+
+.number {
+  color: var(--accent);
+}
+
+// ---- Nome ----
+// Sta SOPRA la parte bassa della foto: z-index lo porta davanti, il
+// margine negativo (mobile) lo fa risalire sull'immagine.
+.title {
+  grid-area: title;
+  position: relative;
+  z-index: 1;
+  margin-top: -0.55em;
+  // Mobile: due righe; "Sabrina" (la più lunga) riempie la larghezza.
+  // Il numero è trovato misurando: la parola è larga ~3.43 volte il
+  // corpo del carattere, quindi 100 / 3.43 ≈ 29cqi.
+  font-size: 28.5cqi;
+  font-weight: var(--weight-regular);
+  line-height: 0.92;
+  letter-spacing: var(--tracking-display);
+
+  // Da md: una riga sola, larga quanto il contenuto ("Sabrina Rizzi" è
+  // largo ~5.76 volte il corpo: 100 / 5.76 ≈ 17.3cqi).
+  @include from(md) {
+    margin-top: $space-xs;
+    font-size: 17.1cqi;
+    white-space: nowrap;
+  }
+}
+
+// La maschera di ogni parola (stessa tecnica dei titoli di sezione).
+.line {
+  display: block;
+  overflow: clip;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+
+  @include from(md) {
+    display: inline-block;
+    vertical-align: bottom;
+
+    & + & {
+      margin-left: 0.22em; // lo spazio tra nome e cognome
+    }
+  }
+}
+
+.lineInner {
+  display: block;
+}
+
+.role {
+  grid-area: role;
+  margin-top: $space-md;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--accent);
+
+  @include from(md) {
+    margin-top: 0;
+  }
+}
+
+// ---- Frase + pulsanti ----
+.side {
+  grid-area: side;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-md;
+  margin-top: $space-md;
+
+  // Da md: a metà altezza nello spazio libero della colonna destra.
+  @include from(md) {
+    align-self: center;
+    margin-block: $space-lg;
+  }
+}
+
+// La frase è il contenuto principale della colonna: grande e nel colore
+// pieno del testo, così riempie lo spazio invece di galleggiarci dentro.
+.lead {
+  max-width: 24ch;
+  color: var(--text);
+  font-size: clamp(1.5rem, 3.4cqi, 2.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-xs;
+}
+
+// ---- Dati a colpo d'occhio ----
+// auto-fit + minmax: tante colonne quante ce ne stanno larghe almeno
+// 10rem; se lo spazio non basta vanno a capo da sole (niente media query).
+.facts {
+  grid-area: facts;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: $space-sm $space-md;
+  margin: $space-lg 0 0;
+
+  @include from(md) {
+    margin: 0 0 $space-lg;
+  }
+}
+
+.fact {
+  padding-top: $space-xs;
+  border-top: 1px solid var(--border-strong);
+}
+
+.factTerm {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-muted);
+}
+
+.factDetail {
+  margin: $space-3xs 0 0;
+  font-size: var(--text-sm);
+  line-height: 1.4;
+}
+
+// ---- Foto ----
+// position: relative fa da riferimento a ciò che le sta sopra (zoom e
+// mosaico); overflow: hidden ritaglia lo zoom d'ingresso.
+// mask-image: la foto sfuma verso il basso fino a sparire nello sfondo.
+// Così il nome che le passa sopra si legge sia nel tema scuro sia nel
+// chiaro (nero = visibile, trasparente = nascosto).
+.figure {
+  grid-area: photo;
+  position: relative;
+  margin: $space-md 0 0;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  mask-image: linear-gradient(to bottom, #000 55%, transparent 97%);
+
+  // Da md: prima colonna, da cima a fondo (riga 1 -> ultima, -1).
+  @include from(md) {
+    grid-area: auto;
+    grid-column: 1;
+    grid-row: 1 / -1;
+    margin: 0;
+    aspect-ratio: auto;
+    min-height: 32rem;
+  }
+}
+
+// La foto riempie la cornice, qualunque forma abbia: object-fit: cover
+// la ritaglia senza deformarla, object-position sceglie quale parte
+// tenere (qui: centrata, un po' verso l'alto, dove c'è il viso).
+.zoom {
+  position: absolute;
+  inset: 0;
+}
+
+.photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 25%;
+}
+
+// ---- Mosaico ----
+// Una griglia stesa sopra la foto (inset: 0 = attaccata ai quattro lati).
+// Di base è spenta: senza JavaScript, o con "riduci movimento", la foto
+// si vede e basta.
+.tiles {
+  position: absolute;
+  inset: 0;
+  display: none;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  grid-template-rows: repeat(var(--rows), 1fr);
+  pointer-events: none;
+}
+
+.tile {
+  background: var(--bg);
+  // Le tessere hanno misure con decimali: l'ombra di mezzo pixel chiude
+  // le fessure da cui si intravedrebbe la foto.
+  box-shadow: 0 0 0 0.5px var(--bg);
+}
+
+// ---- Niente "lampo" al caricamento ----
+// L'HTML arriva già visibile; poi GSAP lo nasconde per animarlo: per un
+// istante si vedrebbe il testo comparire, sparire e ricomparire.
+// Lo nascondiamo quindi in CSS, ma SOLO se JavaScript è attivo
+// (html[data-js], messo dallo script in layout.tsx) e se l'utente non ha
+// chiesto di ridurre il movimento. Reveal lo rende di nuovo visibile.
+// Stessa condizione per accendere il mosaico, che copre la foto finché
+// Reveal non lo dissolve.
+@media (prefers-reduced-motion: no-preference) {
+  :global(html[data-js]) .hero [data-reveal="mask"],
+  :global(html[data-js]) .hero [data-reveal="fade"] {
+    visibility: hidden;
+  }
+
+  :global(html[data-js]) .hero .tiles {
+    display: grid;
+  }
+
+  // Finito l'ingresso (data-revealed, messo da Reveal) le tessere restano
+  // sulla foto, ma trasparenti. La transizione vale per il RITORNO a
+  // trasparente: lenta, così le tessere toccate dal mouse si spengono
+  // una dopo l'altra e lasciano una scia.
+  .tiles[data-revealed] .tile {
+    opacity: 0;
+    transition: opacity 1.3s ease 0.15s;
+  }
+}
+
+// ---- Tessere al passaggio del mouse ----
+// Solo con un mouse vero (hover: hover) e senza "riduci movimento".
+// La tessera sotto il cursore si accende subito (durata 0), poi torna
+// trasparente con la transizione lenta scritta sopra.
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .tiles[data-revealed] .tile {
+    pointer-events: auto; // la griglia ignora il mouse, le tessere no
+  }
+
+  .tiles[data-revealed] .tile:hover {
+    opacity: 1;
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+}
+

@@ -1,0 +1,33 @@
+@use "../../styles/abstracts/variables" as *;
+@use "../../styles/abstracts/mixins" as *;
+
+// Una colonna su mobile, due da md (profili | modulo).
+.contact {
+  display: grid;
+  gap: $space-lg;
+
+  @include from(md) {
+    grid-template-columns: 1fr 1.4fr;
+    gap: $space-xl;
+  }
+}
+
+.profiles {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-muted);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-xs;
+}

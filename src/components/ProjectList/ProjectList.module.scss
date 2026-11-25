@@ -1,0 +1,142 @@
+@use "../../styles/abstracts/variables" as *;
+@use "../../styles/abstracts/mixins" as *;
+
+.list {
+  border-bottom: 1px solid var(--border);
+}
+
+// Mobile first: numero + contenuti impilati.
+// Da md: tre colonne e due fasce, come nei contributi: nella colonna 2
+// titolo e anno (fascia 1) e miniatura (fascia 2); la scheda sta nella
+// colonna 3, fascia 2, quindi parte all'altezza della miniatura.
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: $space-xs $space-sm;
+  padding-block: $space-md;
+  border-top: 1px solid var(--border);
+
+  @include from(md) {
+    grid-template-columns: 4rem 1fr 1.4fr;
+    gap: $space-md $space-lg;
+    padding-block: $space-lg;
+  }
+}
+
+// La prima riga segue già il filetto dell'intestazione di sezione.
+.row:first-child {
+  border-top-color: transparent;
+}
+
+// La "corsia": linea accento che scorre sopra il filetto all'hover.
+// :focus-within = vale anche quando un link DENTRO la riga ha il focus
+// da tastiera.
+.row::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform $duration-slow $ease-out;
+}
+
+.row:hover::before,
+.row:focus-within::before {
+  transform: scaleX(1);
+}
+
+.number {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 2;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.title {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-regular);
+  transition: color $duration-fast $ease-out;
+}
+
+.row:hover .title,
+.row:focus-within .title {
+  color: var(--accent);
+}
+
+.year {
+  margin-top: $space-2xs;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  letter-spacing: var(--tracking-wide);
+  font-variant-numeric: tabular-nums;
+}
+
+.body {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  max-width: 60ch;
+
+  @include from(md) {
+    grid-column: 3;
+    grid-row: 2; // stessa fascia della miniatura
+  }
+}
+
+.description {
+  color: var(--text-muted);
+}
+
+// ---- Scheda tecnica: Tipo / Stack ----
+// Ogni coppia è una riga a due colonne: etichetta stretta, valore largo.
+.specs {
+  margin: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.spec {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: $space-sm;
+  padding-block: $space-xs;
+  border-top: 1px solid var(--border);
+}
+
+.specTerm {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.9; // allinea l'etichetta piccola alla riga del valore
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-muted);
+}
+
+.specDetail {
+  margin: 0;
+  font-size: var(--text-sm);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-xs $space-md;
+}
+
+// ---- Miniatura (stesse misure di quelle dei contributi) ----
+.image {
+  grid-column: 2;
+  display: block;
+  width: 100%;
+  max-width: 24rem;
+  height: auto; // mantiene le proporzioni originali
+  border-radius: $radius-sm;
+  border: 1px solid var(--border);
+}

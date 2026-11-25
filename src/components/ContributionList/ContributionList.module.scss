@@ -1,0 +1,138 @@
+@use "../../styles/abstracts/variables" as *;
+@use "../../styles/abstracts/mixins" as *;
+
+.list {
+  border-bottom: 1px solid var(--border);
+}
+
+// Mobile first: numero + contenuti impilati.
+// Da md: tre colonne e due fasce. Nella colonna 2 l'intestazione (fascia 1)
+// e l'immagine (fascia 2); il testo sta nella colonna 3 ma nella fascia 2,
+// quindi parte alla stessa altezza dell'immagine.
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: $space-md $space-sm;
+  padding-block: $space-md;
+  border-top: 1px solid var(--border);
+
+  @include from(md) {
+    grid-template-columns: 4rem 1fr 1.4fr;
+    gap: $space-md $space-lg;
+    padding-block: $space-lg;
+  }
+}
+
+.row:first-child {
+  border-top-color: transparent;
+}
+
+// La "corsia" accento, come nelle altre liste.
+.row::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform $duration-slow $ease-out;
+}
+
+.row:hover::before,
+.row:focus-within::before {
+  transform: scaleX(1);
+}
+
+.number {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 2;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.date {
+  margin-bottom: $space-2xs;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 2.4; // stessa altezza di riga del numero accanto
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-muted);
+}
+
+.title {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-regular);
+  text-wrap: balance; // righe del titolo di lunghezza simile
+  transition: color $duration-fast $ease-out;
+}
+
+.row:hover .title,
+.row:focus-within .title {
+  color: var(--accent);
+}
+
+.subtitle {
+  margin-top: $space-xs;
+  color: var(--text-muted);
+}
+
+// ---- Immagine + didascalia ----
+.figure {
+  grid-column: 2;
+  margin: 0;
+  max-width: 24rem;
+
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto; // mantiene le proporzioni originali
+  border-radius: $radius-sm;
+  border: 1px solid var(--border);
+}
+
+.note {
+  margin-top: $space-xs;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+// ---- Testo ----
+.body {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  max-width: 60ch;
+  color: var(--text-muted);
+
+  @include from(md) {
+    grid-column: 3;
+    grid-row: 2; // stessa fascia dell'immagine
+  }
+}
+
+.points {
+  border-bottom: 1px solid var(--border);
+}
+
+.point {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3xs;
+  padding-block: $space-xs;
+  border-top: 1px solid var(--border);
+  font-size: var(--text-sm);
+}
+
+.term {
+  font-weight: var(--weight-medium, 500);
+  color: var(--text);
+}

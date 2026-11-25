@@ -1,0 +1,54 @@
+@use "../../styles/abstracts/variables" as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+  padding: $space-lg;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: $radius-lg;
+  box-shadow: var(--shadow-sm);
+}
+
+// Solo le card con href si sollevano all'hover
+.clickable {
+  transition:
+    transform $duration $ease-out,
+    box-shadow $duration $ease-out,
+    border-color $duration $ease-out;
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-strong);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+}
+
+.meta {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.title {
+  font-size: var(--text-xl);
+}
+
+.desc {
+  color: var(--text-muted);
+}
+
+.footer {
+  margin-top: $space-xs;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2xs;
+}

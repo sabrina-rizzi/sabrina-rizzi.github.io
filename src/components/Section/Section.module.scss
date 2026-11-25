@@ -1,0 +1,87 @@
+@use "../../styles/abstracts/variables" as *;
+@use "../../styles/abstracts/mixins" as *;
+
+.section {
+  @include container;
+  padding-block: $space-xl;
+
+  @include from(md) {
+    padding-block: $space-2xl;
+  }
+}
+
+// ---- Tono "panel": la sezione dentro un riquadro ----
+// Lo spazio verticale passa dalla sezione al riquadro interno.
+.panel {
+  padding-block: $space-sm;
+
+  .inner {
+    padding: $space-lg $space-sm;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: $radius-lg;
+    transition: background var(--_theme-fade, 0s) linear;
+
+    @include from(md) {
+      padding: $space-xl $space-lg;
+    }
+  }
+}
+
+// ---- Riga tecnica: "02 / 09" a sinistra, etichetta a destra ----
+.meta {
+  display: flex;
+  justify-content: space-between;
+  gap: $space-sm;
+  padding-bottom: $space-xs;
+  border-bottom: 1px solid var(--border-strong);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums; // cifre a larghezza fissa
+}
+
+.number {
+  color: var(--accent);
+}
+
+// ---- Titolo + introduzione ----
+// Mobile: uno sotto l'altro. Da md: titolo a sinistra, testo a destra,
+// allineati in basso (align-items: end) come in un impaginato.
+.heading {
+  display: grid;
+  gap: $space-sm;
+  margin-block: $space-md $space-lg;
+
+  @include from(md) {
+    grid-template-columns: 1.4fr 1fr;
+    align-items: end;
+    gap: $space-xl;
+    margin-block: $space-lg $space-xl;
+  }
+}
+
+.title {
+  font-size: var(--display-md);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+  // Maschera per la comparsa: ciò che esce dal riquadro non si vede.
+  // Il padding lascia spazio alle lettere che scendono (g, p) e il
+  // margine negativo lo compensa, così l'impaginato non cambia.
+  overflow: clip;
+  padding-bottom: 0.15em;
+  margin-bottom: -0.15em;
+}
+
+.titleInner {
+  display: block; // un blocco si può traslare, un testo in linea no
+}
+
+.intro {
+  max-width: 44ch;
+  color: var(--text-muted);
+  font-size: var(--text-lg);
+}

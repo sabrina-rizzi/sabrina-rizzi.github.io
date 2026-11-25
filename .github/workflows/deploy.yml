@@ -1,0 +1,71 @@
+# PUBBLICAZIONE AUTOMATICA SU GITHUB PAGES
+# A ogni push sul ramo main, GitHub esegue questi passi su un suo computer:
+# installa le dipendenze, crea il sito statico (cartella out/) e lo
+# pubblica. Si può anche avviare a mano dalla scheda "Actions" del
+# repository (workflow_dispatch).
+#
+# Requisito, da fare UNA volta: nel repository, Settings -> Pages ->
+# "Build and deployment" -> Source: "GitHub Actions".
+
+name: Pubblica su GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Permessi minimi: leggere il codice e pubblicare su Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Una pubblicazione alla volta; se ne parte una nuova, quella vecchia
+# in coda viene saltata (ma una già in corso viene completata).
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scarica il codice
+        uses: actions/checkout@v4
+
+      - name: Installa Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      # Legge le impostazioni di Pages e ricava il percorso base del sito
+      # ("/Sito" per sabrina-rizzi.github.io/Sito/, vuoto con un dominio
+      # personalizzato). Lo passiamo a Next come PAGES_BASE_PATH.
+      - name: Configura Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Installa le dipendenze
+        run: npm ci
+
+      - name: Crea il sito statico
+        run: npm run build
+        env:
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+
+      - name: Prepara i file da pubblicare
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Pubblica
+        id: deployment
+        uses: actions/deploy-pages@v4

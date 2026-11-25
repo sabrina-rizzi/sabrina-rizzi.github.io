@@ -1,0 +1,18 @@
+@use "../styles/abstracts/variables" as *;
+@use "../styles/abstracts/mixins" as *;
+
+.devNote {
+  @include container;
+}
+
+// Pulsante verso la pagina completa, sotto ogni assaggio della home.
+.more {
+  margin-top: $space-lg;
+}
+
+.link {
+  color: var(--accent);
+  font-size: var(--text-sm);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

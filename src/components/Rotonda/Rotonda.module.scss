@@ -1,0 +1,316 @@
+@use "../../styles/abstracts/variables" as *;
+@use "../../styles/abstracts/mixins" as *;
+
+// Altezza dell'header (4.5rem + 1px di bordo), come nell'hero.
+$header-height: calc(4.5rem + 1px);
+// Altezza della didascalia: è FISSA (height, non min-height), così né le
+// schede né le frecce si spostano quando il titolo è più lungo.
+$bar-height: 16rem;
+
+// La rotonda è un "di più": su mobile non c'è (restano le liste).
+.rotonda {
+  display: none;
+
+  @include from(md) {
+    @include container;
+    // Apertura della pagina: riempie lo schermo sotto l'header.
+    // Due fasce: la scena prende tutto lo spazio libero (1fr), la
+    // didascalia sta in fondo.
+    display: grid;
+    grid-template-rows: 1fr auto;
+    min-height: calc(100svh - #{$header-height});
+    padding-block: $space-md $space-lg;
+    overflow: hidden; // le schede laterali non allargano la pagina
+    position: relative; // riferimento per l'indicatore di scorrimento
+  }
+
+  // Chi ha chiesto meno animazioni vede solo le liste.
+  @media (prefers-reduced-motion: reduce) {
+    display: none;
+  }
+}
+
+// ---- La scena ----
+.stage {
+  // --w: larghezza di una scheda. È il più piccolo tra tre limiti: una
+  // quota della larghezza dello schermo, un massimo, e quanto ci sta in
+  // ALTEZZA (schermo meno header e didascalia; × 1.6 perché la scheda è
+  // in 16:10).
+  // --r: raggio del cerchio. --k arriva da React (dipende da quante
+  // schede ci sono); i 2rem in più le distanziano.
+  --w: min(42vw, 36rem, (100svh - #{$bar-height} - 12rem) * 1.6);
+  --r: calc(var(--w) * var(--k) + 2rem);
+
+  display: grid;
+  place-items: center;
+  min-height: calc(var(--w) * 0.625 + #{$space-lg});
+  // perspective: la distanza di chi guarda. Senza, il 3D appare piatto.
+  perspective: 1600px;
+  cursor: grab;
+  touch-action: pan-y; // col dito: in verticale scorre la pagina
+  user-select: none;
+}
+
+.dragging {
+  cursor: grabbing;
+}
+
+// ---- L'anello ----
+// Si sposta INDIETRO del raggio (così la scheda davanti resta a grandezza
+// naturale) e ruota su se stesso. --angle lo scrive il JavaScript a ogni
+// fotogramma: qui NON c'è transition, l'animazione la fa GSAP.
+.ring {
+  --angle: 0deg;
+
+  position: relative;
+  width: var(--w);
+  aspect-ratio: 16 / 10;
+  transform-style: preserve-3d; // i figli vivono nello stesso spazio 3D
+  transform: translateZ(calc(var(--r) * -1)) rotateY(var(--angle));
+}
+
+// ---- Le schede ----
+// Ognuna ruota del proprio angolo (--turn) e poi avanza del raggio:
+// è così che si dispongono in cerchio.
+.card {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(var(--turn)) translateZ(var(--r));
+  backface-visibility: hidden; // quelle di spalle non si vedono
+  border: 1px solid var(--border-strong);
+  border-radius: $radius-sm;
+  overflow: hidden;
+  background: var(--surface);
+  // PROFONDITÀ: --depth va da 0 (davanti) a 1 (lontana) e la scrive il
+  // JavaScript a ogni fotogramma. Più la scheda è lontana, più è sfocata
+  // e trasparente (sullo sfondo scuro: più buia), come in una fotografia
+  // con il soggetto a fuoco. Niente transition: il valore cambia già in
+  // modo continuo mentre l'anello gira.
+  opacity: calc(1 - var(--depth, 1) * 0.65);
+  filter: blur(calc(var(--depth, 1) * 4px));
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; // riempie la scheda, tagliando l'eccesso
+  object-position: top;
+  pointer-events: none; // il trascinamento lo gestisce la scena
+}
+
+// ---- Fascia in basso: didascalia a sinistra, comandi a destra ----
+.bar {
+  display: flex;
+  justify-content: space-between;
+  gap: $space-lg;
+  height: $bar-height;
+  padding-top: $space-md;
+  border-top: 1px solid var(--border-strong);
+}
+
+.caption {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-xs;
+  // Non oltre la metà della fascia (meno lo spazio dell'indicatore
+  // "Scorri", che sta al centro): così un titolo lungo non ci finisce sopra.
+  max-width: min(46rem, calc(50% - 3rem));
+}
+
+.counter {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.number {
+  color: var(--accent);
+}
+
+.title {
+  font-family: var(--font-serif);
+  // Un po' più piccolo di prima: anche i titoli lunghi stanno in due
+  // righe, dentro l'altezza fissa della fascia.
+  font-size: clamp(1.5rem, 1rem + 1.2vw, 2rem);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+  // Maschera: ciò che esce dai bordi non si vede. Il titolo nuovo parte
+  // da sotto il bordo e sale. Il piccolo padding salva le "gambe" delle
+  // lettere (g, p, q) dal taglio.
+  overflow: hidden;
+  padding-bottom: 0.1em;
+}
+
+// ---- Cambio di scheda: il testo nuovo entra ----
+.rise {
+  display: block;
+  animation: rise $duration-slow $ease-out both;
+}
+
+.fade {
+  animation: fade $duration-slow $ease-out both;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(105%);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.detail {
+  max-width: 52ch;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+// ---- Comandi ----
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: $space-sm;
+  flex-shrink: 0; // non si stringe se il titolo è lungo
+}
+
+.hint {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-muted);
+}
+
+.dashes {
+  display: flex;
+  gap: $space-2xs;
+}
+
+// Il trattino è sottile, ma il bottone è alto 1.5rem: l'area cliccabile
+// resta comoda. La riga visibile è disegnata con ::before.
+.dash {
+  position: relative;
+  width: 2rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 50% 0 auto;
+    height: 2px;
+    background: var(--border-strong);
+    transition: background $duration $ease-out;
+  }
+
+  &:hover::before {
+    background: var(--text);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+}
+
+.dashActive::before,
+.dashActive:hover::before {
+  background: var(--accent);
+}
+
+.arrows {
+  display: flex;
+  gap: $space-xs;
+}
+
+// ---- Indicatore di scorrimento ----
+// In basso al centro: la parola "Scorri" e sotto una linea sottile in cui
+// un trattino accento scende e ricomincia, come una goccia. La linea ha
+// overflow: hidden, così il trattino compare e sparisce ai suoi bordi.
+.scrollCue {
+  position: absolute;
+  left: 50%;
+  bottom: $space-xs;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-2xs;
+  padding: $space-2xs $space-xs;
+  color: var(--text-muted);
+  // visibility cambia DOPO la dissolvenza in uscita (ritardo = durata),
+  // subito in entrata: così si vede sfumare in entrambi i versi.
+  transition:
+    color $duration-fast $ease-out,
+    opacity $duration $ease-out,
+    visibility 0s linear 0s;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--accent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: $radius-sm;
+  }
+}
+
+// Nascosto: trasparente, non cliccabile, fuori dall'ordine del tasto Tab
+// (visibility: hidden lo toglie anche a tastiera e screen reader).
+.cueHidden {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    color $duration-fast $ease-out,
+    opacity $duration $ease-out,
+    visibility 0s linear $duration;
+}
+
+.cueText {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.cueLine {
+  position: relative;
+  width: 1px;
+  height: 2.5rem;
+  overflow: hidden;
+  background: var(--border-strong);
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    height: 40%;
+    background: var(--accent);
+    animation: drip 1.8s $ease-out infinite;
+  }
+}
+
+@keyframes drip {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(250%);
+  }
+}

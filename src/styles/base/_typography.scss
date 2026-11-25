@@ -1,0 +1,44 @@
+// ===================================================================
+//  TIPOGRAFIA DI BASE — stili degli elementi di testo.
+//  I "ruoli" usano i token tipografici definiti in globals.scss.
+// ===================================================================
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance; // evita righe orfane nei titoli
+}
+
+h1 {
+  font-size: var(--display-md);
+}
+
+h2 {
+  font-size: var(--display-sm);
+}
+
+h3 {
+  font-size: var(--text-xl);
+}
+
+h4 {
+  font-size: var(--text-lg);
+}
+
+p {
+  text-wrap: pretty;
+}
+
+small {
+  font-size: var(--text-sm);
+}
+
+strong,
+b {
+  font-weight: var(--weight-semibold);
+}

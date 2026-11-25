@@ -1,0 +1,42 @@
+@use "../../styles/abstracts/variables" as *;
+
+.link {
+  position: relative;
+  display: inline-block;
+  padding-block: $space-3xs;
+  color: var(--text);
+  font-size: var(--text-base);
+  transition: color $duration-fast $ease-out;
+}
+
+// La "corsia": una linea che cresce da sinistra all'hover.
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.5px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform $duration $ease-out;
+}
+
+.link:hover,
+.link:focus-visible {
+  color: var(--accent);
+}
+
+.link:hover::after,
+.link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+// Voce attiva: corsia sempre presente, colore accento
+.active {
+  color: var(--accent);
+}
+.active::after {
+  transform: scaleX(1);
+}

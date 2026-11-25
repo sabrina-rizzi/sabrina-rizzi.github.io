@@ -1,0 +1,63 @@
+@use "../../styles/abstracts/variables" as *;
+@use "../../styles/abstracts/mixins" as *;
+
+// "sticky": l'header scorre con la pagina finché tocca il bordo alto,
+// poi resta incollato lì.
+.header {
+  position: sticky;
+  top: 0;
+  z-index: $z-header;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  transition: background var(--_theme-fade, 0s) linear;
+}
+
+.inner {
+  @include container;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-md;
+  min-height: 4.5rem;
+}
+
+.brand {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+}
+
+.brandAccent {
+  color: var(--accent);
+}
+
+// Mobile first: la nav in riga è nascosta, compare da md in su.
+.nav {
+  display: none;
+
+  @include from(md) {
+    display: block;
+  }
+}
+
+.navList {
+  display: flex;
+  gap: $space-lg;
+}
+
+// "01" piccolo in monospace prima del nome della pagina.
+.navNumber {
+  margin-right: 0.5em;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+}
