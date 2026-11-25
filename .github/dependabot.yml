@@ -1,0 +1,26 @@
+# AGGIORNAMENTI AUTOMATICI (Dependabot)
+# Una volta a settimana GitHub controlla se ci sono nuove versioni dei
+# pacchetti npm e delle azioni usate nel workflow. Se ne trova, apre una
+# pull request: si legge, si controlla e si decide se unirla.
+# Gli aggiornamenti di SICUREZZA arrivano comunque appena escono, se nel
+# repository sono attivi i "Dependabot security updates" (Settings ->
+# Code security).
+
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    target-branch: dev # le proposte arrivano sul ramo di sviluppo
+    schedule:
+      interval: weekly
+    # Gli aggiornamenti minori e le correzioni arrivano in UNA sola pull
+    # request invece che una per pacchetto.
+    groups:
+      dipendenze:
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: dev
+    schedule:
+      interval: weekly

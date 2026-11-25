@@ -40,3 +40,8 @@
 .error {
   color: var(--danger);
 }
+
+// Campo antispam: non deve mai comparire (vedi ContactForm.tsx).
+.honeypot {
+  display: none;
+}

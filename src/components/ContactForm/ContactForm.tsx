@@ -56,6 +56,20 @@ export default function ContactForm({ action }: { action: string }) {
       <Field label="Oggetto" name="subject" required />
       <Field label="Messaggio" name="message" required multiline />
 
+      {/* ANTISPAM ("honeypot", vasetto di miele): un campo che le persone
+          non vedono e quindi lasciano vuoto, mentre i bot compilano tutti
+          i campi che trovano. Se arriva pieno, Formspree scarta il
+          messaggio. "_gotcha" è il nome che Formspree riconosce.
+          Nascosto a tutti: alla vista (hidden), al tasto Tab (tabIndex
+          -1), agli screen reader (aria-hidden) e al riempimento
+          automatico del browser (autoComplete off). */}
+      <div className={styles.honeypot} aria-hidden="true">
+        <label>
+          Non compilare questo campo
+          <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
+
       <p className={styles.note}>
         I dati inviati sono usati solo per rispondere al messaggio. Dettagli
         nella{" "}

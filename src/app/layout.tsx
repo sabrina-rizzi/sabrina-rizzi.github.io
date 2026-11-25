@@ -30,6 +30,13 @@ export const metadata: Metadata = {
   title: "Sabrina Rizzi — Junior AI Developer & Data Analyst",
   description:
     "Portfolio di Sabrina Rizzi: Junior AI Developer e Data Analyst, ponte tra business e tecnologia.",
+  // Referrer Policy: quando si clicca un link verso un ALTRO sito, gli
+  // comunichiamo solo il dominio (sabrina-rizzi.github.io), non la pagina
+  // precisa; e niente del tutto se si passasse da https a http. Next la
+  // scrive come <meta name="referrer"> (GitHub Pages non permette di
+  // inviarla come intestazione). Il dominio basta a Formspree per
+  // riconoscere da dove arriva il modulo.
+  referrer: "strict-origin-when-cross-origin",
 };
 
 // Applica il tema salvato PRIMA che la pagina si disegni, così non si vede
